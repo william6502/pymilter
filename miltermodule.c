@@ -562,7 +562,7 @@ static const char milter_set_header_callback__doc__[] =
 Sets the Python function invoked on each message header.\n\
 Function takes args (ctx, field, value) ->int\n\
 field -> String - the header\n\
-value -> String - the header's value";
+value -> Byte - the header's value";
 
 static PyObject *
 milter_set_header_callback(PyObject *self, PyObject *args) {
@@ -860,7 +860,7 @@ milter_wrap_header(SMFICTX *ctx, char *headerf, char *headerv) {
    if (header_callback == NULL) return SMFIS_CONTINUE;
    c = _get_context(ctx);
    if (!c) return SMFIS_TEMPFAIL;
-   arglist = Py_BuildValue("(Oss)", c, headerf, headerv);
+   arglist = Py_BuildValue("(Osy)", c, headerf, headerv);
    return _generic_wrapper(c, header_callback, arglist);
 }
 
